@@ -30,11 +30,11 @@ def generate_unique_number():
 def create_trucks(apps, schema_editor):
     Truck = apps.get_model('api', 'Truck')
     Location = apps.get_model('api', 'Location')
-    items = list(Location.objects.all())
+    locations = list(Location.objects.all())
     for _ in range(20):
         truck = Truck.objects.create(
             license_plate=generate_unique_number(),
-            current_location=random.choice(items),
+            current_location=random.choice(locations),
             load_capacity=random.randint(1, 1000)
         )
         truck.save()

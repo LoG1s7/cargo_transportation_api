@@ -6,10 +6,17 @@ class Location(models.Model):
     city = models.CharField('Город')
     state = models.CharField('Штат')
     mail_zip = models.CharField(
-        'Почтовый индекс', max_length=5
+        'Почтовый индекс', max_length=5, unique=True
     )
     latitude = models.DecimalField('Широта', max_digits=9, decimal_places=6)
     longitude = models.DecimalField('Долгота', max_digits=9, decimal_places=6)
+
+    class Meta:
+        verbose_name = 'Локация'
+        verbose_name_plural = 'Локации'
+
+    def __str__(self):
+        return f'{self.city} - {self.state} - zip {self.mail_zip}'
 
 
 class Cargo(models.Model):
@@ -30,6 +37,18 @@ class Cargo(models.Model):
     )
     description = models.TextField('Описание')
 
+    class Meta:
+        verbose_name = 'Груз'
+        verbose_name_plural = 'Грузы'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['pick_up_location', 'delivery_location'],
+                name='unique_locations'),
+        ]
+
+    def __str__(self):
+        return f'{self.description}'
+
 
 class Truck(models.Model):
     license_plate = models.CharField(
@@ -45,3 +64,10 @@ class Truck(models.Model):
         'Грузоподъемность',
         validators=(MinValueValidator(1), MaxValueValidator(1000))
     )
+
+    class Meta:
+        verbose_name = 'Автомобиль'
+        verbose_name_plural = 'Автомобили'
+
+    def __str__(self):
+        return f'{self.license_plate}'
