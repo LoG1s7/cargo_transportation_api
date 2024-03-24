@@ -1,13 +1,9 @@
-from .serializers import (
-    PostCargoSerializer,
-    CargoListSerializer,
-    CargoSerializer,
-    TruckSerializer,
-    UpdateTruckSerializer
-)
-from .models import Cargo, Truck
-
 from rest_framework import viewsets
+
+from .models import Cargo, Truck
+from .serializers import (CargoListSerializer, CargoSerializer,
+                          PostCargoSerializer, TruckSerializer,
+                          UpdateTruckSerializer)
 
 
 class CargoViewSet(viewsets.ModelViewSet):
@@ -16,7 +12,7 @@ class CargoViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return PostCargoSerializer
-        elif self.action == 'list':
+        if self.action == 'list':
             return CargoListSerializer
         return CargoSerializer
 

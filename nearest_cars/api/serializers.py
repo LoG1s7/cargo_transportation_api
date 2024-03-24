@@ -1,8 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Cargo, Location, Truck
+from geopy import distance
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from geopy import distance
+
+from .models import Cargo, Location, Truck
 
 
 class LocationSerializer(serializers.ModelSerializer):
