@@ -76,3 +76,7 @@ sudo docker compose -f infra/docker-compose.yml down
 docker compose -f infra/docker-compose.yml down -v
 ```
 <h1></h1>
+
+## Автор
+[Aleksandr Kolesnikov](https://github.com/log1s7)
+
